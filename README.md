@@ -19,4 +19,4 @@ This project specifically focuses on reproducing the baseline results described 
 This repository aims to achieve comparable performance using PyTorch implementations of these models.
 
 
-
+**Note : `c3d-pytorch`**- This project utilizes the C3D model implementation from [DavideA/c3d-pytorch](https://github.com/DavideA/c3d-pytorch.git).
