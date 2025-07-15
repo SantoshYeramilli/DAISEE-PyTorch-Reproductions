@@ -1,3 +1,5 @@
+#Uncomment the specific imports/lines for each model
+
 #Frame level imports
 #from Frame_level.dataloader import get_dataloader
 #from Frame_level.inceptionnet_v3_model import InceptionV3MultiTask
@@ -23,8 +25,6 @@ from LRCN.train import train_model
 from LRCN.test import test_model
 
 
-from save_pkl import save_model_pickle, load_model_pickle
-
 import torch
 import torch.nn as nn
 import torchvision.models as models
@@ -35,13 +35,13 @@ import torch.optim as optim
 def main():
 
 
-    test_label_path = "/mnt/pub/Cognitive/DAiSEE/Labels/TestLabels.csv"
-    train_label_path = "/mnt/pub/Cognitive/DAiSEE/Labels/TrainLabels.csv"
-    val_label_path = "/mnt/pub/Cognitive/DAiSEE/Labels/ValidationLabels.csv"
+    test_label_path = "DAiSEE/Labels/TestLabels.csv"
+    train_label_path = "DAiSEE/Labels/TrainLabels.csv"
+    val_label_path = "DAiSEE/Labels/ValidationLabels.csv"
 
-    test_dataset_path = "/mnt/pub/Cognitive/DAiSEE_Process/DataSet/Test"
-    train_dataset_path = "/mnt/pub/Cognitive/DAiSEE_Process/DataSet/Train"
-    val_dataset_path = "/mnt/pub/Cognitive/DAiSEE_Process/DataSet/Validation"
+    test_dataset_path = "DAiSEE/DataSet/Test"
+    train_dataset_path = "DAiSEE/DataSet/Train"
+    val_dataset_path = "DAiSEE/DataSet/Validation"
 
     train_loader = get_dataloader(train_dataset_path, train_label_path, batch_size=32, shuffle=False)
     test_loader = get_dataloader(test_dataset_path, test_label_path, batch_size=32, shuffle=False)
@@ -54,8 +54,8 @@ def main():
         print("Video_Ids:",video_id)
         break 
 
-
-    #model = InceptionV3MultiTask(4)
+    #InceptionV3MultiTask model used for both video and frame level model mentioned in the paper
+    #model = InceptionV3MultiTask(4) 
     #model = C3D(4)
     model = LRCN(4)
 
@@ -69,13 +69,11 @@ def main():
     train_model(model, train_loader, criterion, optimizer, device, epochs=5)
 
 
-    #model.load_state_dict(torch.load("/home/hbml-syeramil/Documents/spring_proj/results/c3d_full_train/c3d_model.pth"))
-    #model = load_model_pickle("best_model.pkl", device)
+    #model.load_state_dict(torch.load("results/c3d_full_train/c3d_model.pth"))
     model = model.to(device=device)
     test_model(model, test_loader, criterion, device)
 
     torch.save(model.state_dict(),"lrcn_model.pth")
-    save_model_pickle(model, path="lrcn_model.pkl")
 
 
 if __name__ == "__main__":
