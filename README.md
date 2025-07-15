@@ -85,7 +85,3 @@ python main.py
 └── models/
     └── c3d-pytorch/         # Git submodule for C3D model implementation [https://github.com/DavideA/c3d-pytorch.git]
 ```
-## Acknowledgments
-* The authors of the [DAISEE](https://arxiv.org/abs/1609.01885v7) paper, "DAISEE: Towards User Engagement Recognition in the Wild", for making the dataset publicly available and for their foundational research.
-
-* The developers of the c3d-pytorch repository by [DavideA](https://github.com/DavideA/c3d-pytorch.git), which provides the C3D model implementation used in this project.
